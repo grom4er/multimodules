@@ -3,13 +3,17 @@ package com.example.multimodule.test;
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.example.multimodule.controller.HelloFirstServiceController;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
+
+@SpringBootTest(classes = {HelloFirstServiceController.class})
 class HelloFirstServiceControllerTest {
     @BeforeAll
     public static void configurate() {
@@ -18,7 +22,11 @@ class HelloFirstServiceControllerTest {
 
     @Test
     public void testOkHttp() {
-        given().when().get("/").then().statusCode(200);
+        given()
+                .when()
+                .get("/")
+                .then()
+                .statusCode(200);
     }
 
     @Test

@@ -1,6 +1,6 @@
 package com.example.multimodule.controller;
 
-import com.example.multimodule.FeignProxy;
+import com.example.multimodule.client.FeignProxy;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
