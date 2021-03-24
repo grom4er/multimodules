@@ -18,5 +18,6 @@ public class HelloSecondServiceController {
             throw new ControllerException("Problem with controller");
         }
         return "I'm second-service" + " msg from service: " + msg;
+
     }
 }
