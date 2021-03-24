@@ -13,7 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class FeignExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(value = {ResponseStatusException.class, Exception.class})
     protected ResponseEntity<Object> handleConflict(RuntimeException exception, WebRequest request) {
-        String response = "Exception by: " + request.getDescription(false);
+        String response = "Exception by path: " + request.getDescription(false);
         return handleExceptionInternal(exception, response, new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
 }

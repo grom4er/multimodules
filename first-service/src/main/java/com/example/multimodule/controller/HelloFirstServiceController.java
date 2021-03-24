@@ -16,7 +16,7 @@ public class HelloFirstServiceController {
     }
 
     @GetMapping("/ex")
-    public void exception() {
-        proxy.exception();
+    public String exception() {
+       return proxy.exception("error"); // Если параметр будет null или error - второй сервис выдаст ошибку.
     }
 }
