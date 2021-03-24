@@ -13,8 +13,8 @@ public class HelloFirstServiceController {
     private FeignProxy proxy;
 
     @GetMapping("/")
-    public String sayHi() {
-        return "Hi. I am first controller. " + proxy.sayHi();
+    public String sayHi(@RequestHeader(value = "auth", required = false) String header) {
+        return "Hi. I am first controller. " + proxy.sayHi(header);
     }
 
     @GetMapping("/ex")
