@@ -6,6 +6,5 @@ public class ErrorDecoderConfiguration implements feign.codec.ErrorDecoder {
     @Override
     public Exception decode(String s, Response response) {
         return new Exception(response.reason());
-
     }
 }
