@@ -17,7 +17,7 @@ public class HelloSecondServiceController {
         if(msg == null || msg.equals("error")){
             throw new ControllerException("Problem with controller");
         }
-        return "I'm second-service";
+        return "I'm second-service" + " msg from service: " + msg;
 
     }
 }
