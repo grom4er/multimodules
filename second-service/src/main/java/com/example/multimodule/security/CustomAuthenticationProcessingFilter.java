@@ -24,25 +24,25 @@ public class CustomAuthenticationProcessingFilter extends AbstractAuthentication
                                                 AuthenticationManager authenticationManager) {
         super(requiresAuthenticationRequestMatcher);
         setAuthenticationManager(authenticationManager);
-    }
+    } // что это такое?
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException, IOException, ServletException {
-
         String header = request.getHeader(HEADER);
         if (header == null || !header.equals(AUTH_KEY)) {
             throw new AuthException("Wrong header");
         }
         PreAuthenticatedAuthenticationToken token = new PreAuthenticatedAuthenticationToken(header, null);
+        //что это такое?
         return getAuthenticationManager().authenticate(token);
     }
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-        SecurityContextHolder.getContext().setAuthentication(authResult);
-        chain.doFilter(request, response);
+        SecurityContextHolder.getContext().setAuthentication(authResult); //что это такое?
+        chain.doFilter(request, response); // что это такое?
     }
 
 }

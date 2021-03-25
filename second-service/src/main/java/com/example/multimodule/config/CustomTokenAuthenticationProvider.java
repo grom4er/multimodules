@@ -27,7 +27,6 @@ public class CustomTokenAuthenticationProvider implements AuthenticationProvider
 
 	@Override
 	public boolean supports(Class<?> authentication) {
-		// Lets use inbuilt token class for simplicity
 		return PreAuthenticatedAuthenticationToken.class.equals(authentication);
 	}
 
