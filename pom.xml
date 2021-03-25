@@ -37,5 +37,6 @@
     <modules>
         <module>first-service</module>
         <module>second-service</module>
+        <module>databaseproject</module>
     </modules>
 </project>
