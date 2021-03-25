@@ -8,12 +8,12 @@ import org.springframework.security.web.authentication.preauth.PreAuthenticatedA
 import org.springframework.stereotype.Component;
 
 @Component
-public class CustomTokenAuthenticationProvider implements AuthenticationProvider {
+public class HeaderAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		String customToken = (String) authentication.getPrincipal();
-		return getValidationToken(customToken);
+		String authenticationPrincipal = (String) authentication.getPrincipal();
+		return getValidationToken(authenticationPrincipal);
 	}
 
 	private Authentication getValidationToken(String customToken) {

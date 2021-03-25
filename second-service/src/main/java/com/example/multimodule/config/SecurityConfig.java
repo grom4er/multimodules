@@ -1,7 +1,7 @@
 package com.example.multimodule.config;
 
 import com.example.multimodule.security.CustomAuthenticationProcessingFilter;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,23 +17,19 @@ import javax.servlet.Filter;
 
 @Configuration
 @EnableWebSecurity
-
+@AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private CustomTokenAuthenticationProvider customTokenAuthenticationProvider;
+    private final HeaderAuthenticationProvider headerAuthenticationProvider;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic().disable() // почему?
-                .csrf().disable() // No CSRF token
+        http.httpBasic().disable()
+                .csrf().disable()
                 .formLogin().disable()
-                .logout().disable() // почему?
-
+                .logout().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authenticationProvider(customTokenAuthenticationProvider)
-                .addFilterBefore(getFilter(), AnonymousAuthenticationFilter.class).authorizeRequests() // Authorize
-                // requests
+                .authenticationProvider(headerAuthenticationProvider)
+                .addFilterBefore(getFilter(), AnonymousAuthenticationFilter.class).authorizeRequests()
                 .requestMatchers(getRequestMatchers()).authenticated();
     }
 
@@ -46,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(customTokenAuthenticationProvider);
+    protected void configure(AuthenticationManagerBuilder auth) {
+        auth.authenticationProvider(headerAuthenticationProvider);
     }
 }

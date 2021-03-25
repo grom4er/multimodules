@@ -1,5 +1,6 @@
 package com.example.multimodule.controlleradvice;
 
+import feign.FeignException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,11 +10,17 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.net.URI;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
 @ControllerAdvice
 public class FeignExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(value = {ResponseStatusException.class, Exception.class})
-    protected ResponseEntity<Object> handleConflict(RuntimeException exception, WebRequest request) {
-        String response = "Exception by path: " + request.getDescription(false);
-        return handleExceptionInternal(exception, response, new HttpHeaders(), HttpStatus.CONFLICT, request);
+    @ExceptionHandler(value = {ResponseStatusException.class, Exception.class, FeignException.class})
+    protected String handleException(FeignException e, HttpResponse response) {
+        HttpRequest request = response.request();
+        URI uri = request.uri();
+
+        return String.format("Problem to load page %s", uri);
     }
 }
