@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "4cac1bf1-65f8-4c84-a591-d06fbfdc81e8",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Hello + header:OK",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth",
+						"value": "let_me_in",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Hello no header: 401",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exception+header+msg: OK",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth",
+						"value": "let_me_in",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/ex?msg=I'm message ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"ex"
+					],
+					"query": [
+						{
+							"key": "msg",
+							"value": "I'm message "
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exception+header: 400",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "auth",
+						"value": "let_me_in",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8081/ex",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"ex"
+					],
+					"query": [
+						{
+							"key": "msg",
+							"value": "I'm message",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
