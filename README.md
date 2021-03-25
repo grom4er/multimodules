@@ -39,7 +39,11 @@ http://localhost:8080/exception
 </details>
 <details>
   <summary>№2 сервис</summary>
-Добавлен Spring Sequrity и его зависимости. 
+Добавлен Spring Sequrity и его зависимости.
+Описание логики именно этих настроек находиться по  
+  
+[ссылке](https://salahuddin-s.medium.com/custom-header-based-authentication-using-spring-security-17f4163d0986) 
+
 На данный момент проводиться проверка Header на наличие:
   
 > aut:let_me_in 
