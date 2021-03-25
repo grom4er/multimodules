@@ -1,17 +1,16 @@
 package com.example.multimodule.client;
 
-import com.example.multimodule.exception.NotAuthorizedUser;
-import com.example.multimodule.exception.UnexpectedException;
+import com.example.multimodule.exception.NotAuthorizedUserException;
+import com.example.multimodule.exception.WrongDataException;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
 public class ErrorDecoderConfiguration implements ErrorDecoder {
     @Override
     public Exception decode(String information, Response response) {
-        if(response.status() == 401){
-            throw new NotAuthorizedUser("Data " +  response.request().toString();)
+        if (response.status() == 401) {
+            throw new NotAuthorizedUserException(response.status(), "Incorrect authorize data");
         }
-        throw new UnexpectedException()
-
+        throw new WrongDataException(response.status(), "Wrong data");
     }
 }
