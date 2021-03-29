@@ -7,5 +7,5 @@ import java.util.List;
 public interface BookService {
     List<Book> findByUserId(Long userId);
 
-    List<Book> getTopThreeBooksByUserOlderThenTen();
+    List<Book> getTopThreeBooksByUserYoungerThenTen();
 }

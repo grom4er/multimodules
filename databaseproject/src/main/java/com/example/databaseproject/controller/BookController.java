@@ -27,7 +27,7 @@ public class BookController {
 
     @GetMapping("/popular")
     public List<BookResponse> getChildrenPopulationBooks() {
-        return service.getTopThreeBooksByUserOlderThenTen()
+        return service.getTopThreeBooksByUserYoungerThenTen()
                 .stream()
                 .map(responseBookMapper::mapToDto)
                 .collect(Collectors.toList());

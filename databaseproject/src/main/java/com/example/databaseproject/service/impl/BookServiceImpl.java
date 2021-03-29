@@ -17,11 +17,11 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> findByUserId(Long userId) {
-        return repository.getAllByUserId(userId);
+        return repository.findByUsers_id(userId);
     }
 
     @Override
-    public List<Book> getTopThreeBooksByUserOlderThenTen() {
-        return repository.getTopThreeBooksByUserOlderThenTen();
+    public List<Book> getTopThreeBooksByUserYoungerThenTen() {
+        return repository.getTopThreeBooksByUserYoungerThenTen();
     }
 }

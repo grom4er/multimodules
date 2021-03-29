@@ -14,10 +14,10 @@ public class BaseBookRepositoryImpl implements BaseBookRepository {
     private EntityManager manager;
 
     @Override
-    public List<Book> getTopThreeBooksByUserOlderThenTen() {
+    public List<Book> getTopThreeBooksByUserYoungerThenTen() {
         return manager.createQuery("SELECT b FROM Book b "
-                        + "LEFT JOIN FETCH Record r ON r.book.id = b.id "
-                        + "LEFT JOIN FETCH User u on u.id = r.user.id "
+                        + "LEFT JOIN  Record r ON r.book.id = b.id "
+                        + "LEFT JOIN  User u on u.id = r.user.id "
                         + "WHERE u.age <= 10 "
                         + "GROUP BY b.id "
                         + "ORDER BY COUNT(b.id) ASC ",

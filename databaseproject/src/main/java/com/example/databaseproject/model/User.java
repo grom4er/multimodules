@@ -8,7 +8,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,4 +23,6 @@ public class User {
     @Column(name = "user_name")
     private String userName;
     private int age;
+    @ManyToMany(mappedBy = "users")
+    private List<Book> books;
 }
