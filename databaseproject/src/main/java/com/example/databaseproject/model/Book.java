@@ -14,9 +14,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.List;
 
-@Entity
+
 @NoArgsConstructor
 @Data
+@Entity
 @Table(name = "books")
 public class Book {
     @Id
@@ -32,4 +33,10 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     private List<User> users;
+
+    public Book(long id, String title, int pages) {
+        this.id = id;
+        this.title = title;
+        this.pages = pages;
+    }
 }
