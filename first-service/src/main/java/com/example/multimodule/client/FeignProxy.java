@@ -10,5 +10,5 @@ public interface FeignProxy {
 
     @RequestMapping(method = RequestMethod.GET, value = "/exception")
     String exception(@RequestHeader(value = "auth", required = false) String header,
-                     @RequestParam(value = "msg", required = false) String msg);
+                     @RequestParam(value = "message", required = false) String msg);
 }
