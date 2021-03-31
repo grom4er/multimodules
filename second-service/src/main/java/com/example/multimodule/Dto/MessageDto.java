@@ -1,11 +1,10 @@
-package com.example.multimodule.controller;
+package com.example.multimodule.Dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 @AllArgsConstructor
-public class Msg {
+public class MessageDto {
     @Getter
     private String msg;
 }

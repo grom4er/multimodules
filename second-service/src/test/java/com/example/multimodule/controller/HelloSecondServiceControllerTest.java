@@ -1,13 +1,10 @@
 package com.example.multimodule.controller;
 
 import com.example.multimodule.ApplicationSecond;
-import com.example.multimodule.exception.AuthException;
-import com.example.multimodule.exception.ControllerException;
-import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -62,21 +59,26 @@ public class HelloSecondServiceControllerTest {
     }
 
     @Test
-    public void withoutParamEndpointException() {
-         RestAssuredMockMvc
-                        .given().mockMvc(mvc)
-                        .when().get("/exception");
-
+    public void withParamAndAuthEndpointExceptionTest() {
+        String msg = "information";
+        String expect = "I'm second-service msg from service: ";
+        RestAssuredMockMvc
+                .given().mockMvc(mvc)
+                .header("auth", "let_me_in").param("message", msg)
+                .when().get("/exception")
+                .then()
+                .statusCode(200)
+                .body("msg", Matchers.equalTo(expect + msg));
     }
+
+    @Test
+    public void withParamExceptionEndpointExceptionTest() {
+        RestAssuredMockMvc
+                .given().mockMvc(mvc)
+                .header("auth", "let_me_in").param("message", "error")
+                .when().get("/exception")
+                .then()
+                .statusCode(417);
+    }
+
 }
-
-/*
-
-@GetMapping("/exception")
-    public String exception(@RequestParam String msg) throws ControllerException {
-        if (msg == null || msg.equals("error")) {
-            throw new ControllerException("Problem with controller");
-        }
-        return "I'm second-service" + " msg from service: " + msg;
-    }
- */
