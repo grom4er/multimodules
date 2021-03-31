@@ -1,4 +1,4 @@
-package com.example.multimodule.application;
+package com.example.multimodule;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

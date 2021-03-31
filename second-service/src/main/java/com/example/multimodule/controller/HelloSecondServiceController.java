@@ -13,10 +13,10 @@ public class HelloSecondServiceController {
     }
 
     @GetMapping("/exception")
-    public String exception(@RequestParam String msg) throws ControllerException {
+    public Msg exception(@RequestParam String msg) throws ControllerException {
         if (msg == null || msg.equals("error")) {
             throw new ControllerException("Problem with controller");
         }
-        return "I'm second-service" + " msg from service: " + msg;
+        return new Msg("I'm second-service" + " msg from service: " + msg);
     }
 }

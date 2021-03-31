@@ -1,76 +1,82 @@
 package com.example.multimodule.controller;
 
-import static io.restassured.RestAssured.given;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
-import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-
-//@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-//@RunWith(SpringJUnit4ClassRunner.class)
-class HelloSecondServiceControllerTest {
-    @BeforeAll
-    public static void configurate() {
-        RestAssured.baseURI = "http://localhost:8080";
-    }
-
-    @Test
-    public void testOkHttp() {
-        given().when().get("/hello").then().statusCode(200);
-    }
-
-    @Test
-    public void test() {
-        RequestSpecification httpRequest = RestAssured.given();
-        Response response = httpRequest.get("/hello");
-        ResponseBody body = response.getBody();
-        assertEquals("Hello, i am second controller. ", body.asString());
-    }
-}
-
-
-/*
-import com.example.databaseproject.controller.BookController;
-import io.restassured.RestAssured;
+import com.example.multimodule.ApplicationSecond;
+import com.example.multimodule.exception.AuthException;
+import com.example.multimodule.exception.ControllerException;
+import io.restassured.http.ContentType;
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Assertions;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class DatabaseProjectControllerTest {
+@ContextConfiguration(classes = ApplicationSecond.class)
+@WebAppConfiguration
+public class HelloSecondServiceControllerTest {
     @Autowired
-    private BookController controller;
-    @LocalServerPort
-    private int port;
+    private WebApplicationContext context;
+    private MockMvc mvc;
 
-    @BeforeAll
-    public static void configurate() {
-        RestAssured.baseURI = "http://localhost";
+    @Before
+    public void setup() {
+        mvc = MockMvcBuilders
+                .webAppContextSetup(context)
+                .apply(springSecurity())
+                .build();
     }
 
     @Test
-    public void testOkHttpFirstEndpoint() {
-        given().port(port)
-                .when()
-                .get("/books/popular")
-                .then()
-                .statusCode(200);
+    public void withRightHeaderEndpointHelloTest() {
+        RestAssuredMockMvc
+                .given().mockMvc(mvc)
+                .header("auth", "let_me_in")
+                .when().get("/hello")
+                .then().statusCode(200);
+
     }
 
     @Test
-    public void contextLoad() {
-        assertThat(controller).isNotNull();
+    public void withWrongHeaderEndpointHelloTest() {
+        RestAssuredMockMvc
+                .given().mockMvc(mvc)
+                .header("aUth", "lEt_mE_In")
+                .when().get("/hello")
+                .then().statusCode(401);
+    }
+
+    @Test
+    public void withoutHeaderEndpointHelloTest() {
+        RestAssuredMockMvc
+                .given().mockMvc(mvc)
+                .when().get("/hello")
+                .then().statusCode(401);
+    }
+
+    @Test
+    public void withoutParamEndpointException() {
+         RestAssuredMockMvc
+                        .given().mockMvc(mvc)
+                        .when().get("/exception");
+
     }
 }
+
+/*
+
+@GetMapping("/exception")
+    public String exception(@RequestParam String msg) throws ControllerException {
+        if (msg == null || msg.equals("error")) {
+            throw new ControllerException("Problem with controller");
+        }
+        return "I'm second-service" + " msg from service: " + msg;
+    }
  */
