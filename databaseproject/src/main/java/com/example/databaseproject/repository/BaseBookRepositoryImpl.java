@@ -21,6 +21,6 @@ public class BaseBookRepositoryImpl implements BaseBookRepository {
                         + "WHERE u.age <= 10 "
                         + "GROUP BY b.id "
                         + "ORDER BY COUNT(b.id) ASC ",
-                Book.class).setMaxResults(BOOK_COUNT).getResultList();
+                Book.class).setHint("org.hibernate.cacheable", true).setMaxResults(BOOK_COUNT).getResultList();
     }
 }
