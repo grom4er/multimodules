@@ -20,8 +20,6 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @Table(name = "users")
-@Cacheable
-@Cache(region = "user", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

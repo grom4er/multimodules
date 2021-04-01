@@ -19,7 +19,6 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @Table(name = "records")
-@Cache(region = "user", usage = CacheConcurrencyStrategy.READ_WRITE)
 public class Record implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -18,14 +18,10 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.List;
 
-
 @NoArgsConstructor
 @Data
 @Entity
 @Table(name = "books")
-@Cacheable
-@Cache(region = "user", usage = CacheConcurrencyStrategy.READ_WRITE)
-
 public class Book implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

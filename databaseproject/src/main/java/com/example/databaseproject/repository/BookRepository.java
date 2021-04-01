@@ -8,9 +8,6 @@ import javax.persistence.QueryHint;
 import java.util.List;
 
 public interface BookRepository extends Repository<Book, Long>, BaseBookRepository {
-    @QueryHints(value = {
-            @QueryHint(name = "org.hibernate.cacheable", value = "true"),
-    })
     List<Book> findByUsers_id(long userId);
 }
 
